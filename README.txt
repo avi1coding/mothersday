@@ -1,31 +1,35 @@
 HAPPY MOTHER'S DAY  -  for Charmi Mehta
 ========================================
 
-Made with love by Avi, Amay & Dad.
+Made with love by Avi.
 
-How to open it
---------------
-1. Double-click index.html  (it will open in your browser)
-   OR
-2. Right-click index.html -> Open With -> Chrome / Safari / Firefox
+How to open the site
+--------------------
+Double-click index.html to open it in your browser.
 
-How to add your photos (optional but pretty!)
----------------------------------------------
-Right now there are placeholder boxes that say "Add a photo of Mom" and "Photo 1, 2, 3..."
-To replace any of them with a real photo:
 
-1. Save the photo into this same folder.
-2. Open index.html in any text editor (TextEdit / VS Code).
-3. Find the placeholder, e.g.:
+Adding the photos (5 minutes)
+------------------------------
+The site shows pretty placeholder cards until you save photos with the
+EXACT filenames below into the `photos/` folder next to this README.
 
-     <div class="photo-placeholder">
-        ... lots of stuff ...
-     </div>
+   photos/mom-portrait.jpg     -> The big "About Mom" portrait
+   photos/family-christmas.jpg -> Tall card on the left of the gallery
+   photos/mom-smile.jpg        -> Top-middle card in the gallery
+   photos/mom-scotland.jpg     -> Top-right card in the gallery
+   photos/family-beach.jpg     -> Wide card across the bottom
+   photos/family-pool.jpg      -> Bottom-middle card
 
-4. Replace the WHOLE block with:
+Optional 7th photo:
+   photos/extra.jpg            -> Tall bottom-right slot
 
-     <img src="YOUR-PHOTO-FILENAME.jpg" alt="Mom" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+Important:
+- Filenames must match EXACTLY (lowercase, dashes, .jpg)
+- They must be JPEGs (.jpg). If a photo is HEIC or PNG, open it
+  in Preview, then File > Export > Format: JPEG, and save with the
+  matching name.
+- Once saved, refresh the browser - the photos will fade right in.
 
-5. Save and refresh the browser.
+If a file is missing, the placeholder shows. No harm done.
 
-That's it. Have fun and happy Mother's Day!  ♥
+Have fun and Happy Mother's Day!
