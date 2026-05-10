@@ -568,6 +568,12 @@ img { max-width: 100%; display: block; }
 .gallery-add {
     cursor: pointer;
 }
+.gallery-add:has(.photo-placeholder.has-photo) {
+    cursor: default;
+}
+.gallery-add:has(.photo-placeholder.has-photo):hover .placeholder-add {
+    transform: none;
+}
 .gallery-add:focus-visible .placeholder-add {
     box-shadow: 0 0 0 4px rgba(236, 95, 140, 0.35);
     outline: none;

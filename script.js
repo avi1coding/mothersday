@@ -147,15 +147,16 @@
         const triggerPicker = () => input.click();
 
         uploadSlot.addEventListener('click', (e) => {
-            // Don't reopen the picker if the user clicked the remove button
-            // or the file input itself.
             if (e.target.closest('.photo-remove-btn')) return;
             if (e.target === input) return;
+            // Only open the picker when the slot is empty.
+            if (placeholder.classList.contains('has-photo')) return;
             triggerPicker();
         });
         uploadSlot.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
+                if (placeholder.classList.contains('has-photo')) return;
                 triggerPicker();
             }
         });
