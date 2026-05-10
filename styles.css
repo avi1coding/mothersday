@@ -516,7 +516,11 @@ img { max-width: 100%; display: block; }
     padding: 0;
     min-height: 0;
 }
-.photo-placeholder.has-photo > :not(.photo-real):not(input) {
+.photo-placeholder.has-photo > .placeholder-icon,
+.photo-placeholder.has-photo > .placeholder-icon-sm,
+.photo-placeholder.has-photo > .placeholder-add-icon,
+.photo-placeholder.has-photo > p,
+.photo-placeholder.has-photo > small {
     display: none;
 }
 
