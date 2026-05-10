@@ -88,6 +88,16 @@
             <symbol id="i-arrow-down" viewBox="0 0 24 24">
                 <path d="M12 5v14M19 12l-7 7-7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
             </symbol>
+
+            <!-- CAMERA + PLUS (upload slot) -->
+            <symbol id="i-camera-plus" viewBox="0 0 64 64">
+                <rect x="6" y="20" width="52" height="36" rx="6" fill="#ec5f8c"/>
+                <path d="M22 20l4-6h12l4 6z" fill="#ec5f8c"/>
+                <circle cx="28" cy="40" r="11" fill="#fff"/>
+                <circle cx="28" cy="40" r="7" fill="#ec5f8c"/>
+                <circle cx="50" cy="50" r="9" fill="#e8b974"/>
+                <path d="M50 45v10M45 50h10" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            </symbol>
         </defs>
     </svg>
 
@@ -220,7 +230,7 @@
             <p class="section-sub">Drop your favorite photos into these frames &mdash; they're ready and waiting for you.</p>
 
             <div class="gallery-grid">
-                <figure class="gallery-item tall">
+                <figure class="gallery-item">
                     <div class="photo-placeholder small">
                         <svg class="placeholder-icon-sm"><use href="#i-photo"/></svg>
                         <p>family-christmas.jpg</p>
@@ -244,7 +254,7 @@
                     </div>
                     <figcaption>Adventures</figcaption>
                 </figure>
-                <figure class="gallery-item wide">
+                <figure class="gallery-item">
                     <div class="photo-placeholder small">
                         <svg class="placeholder-icon-sm"><use href="#i-photo"/></svg>
                         <p>family-beach.jpg</p>
@@ -260,14 +270,16 @@
                     </div>
                     <figcaption>Vacations together</figcaption>
                 </figure>
-                <figure class="gallery-item tall">
-                    <div class="photo-placeholder small">
-                        <svg class="placeholder-icon-sm"><use href="#i-photo"/></svg>
-                        <p>(Optional)</p>
-                        <small>Add another favorite as <code>photos/extra.jpg</code></small>
-                        <img class="photo-real" src="photos/extra.jpg" alt="" onerror="this.style.display='none'" />
+
+                <figure class="gallery-item gallery-add" id="upload-slot" tabindex="0" role="button" aria-label="Add a photo of your own">
+                    <div class="photo-placeholder small placeholder-add">
+                        <svg class="placeholder-add-icon"><use href="#i-camera-plus"/></svg>
+                        <p>Add your own photo</p>
+                        <small>Click to take or upload one</small>
+                        <img class="photo-real" alt="Your photo" />
+                        <input type="file" class="photo-upload-input" accept="image/*" hidden />
                     </div>
-                    <figcaption>Little moments</figcaption>
+                    <figcaption>Your moment, Mom</figcaption>
                 </figure>
             </div>
         </div>

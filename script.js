@@ -112,6 +112,92 @@
         setTimeout(() => spark.remove(), 900);
     });
 
+    /* ---------------- Photo loading: mark each image's placeholder
+        with .has-photo so the placeholder UI fades and the photo
+        takes its natural size (no cropping). ---------------- */
+    function markLoaded(img) {
+        const ph = img.closest('.photo-placeholder');
+        if (ph) ph.classList.add('has-photo');
+    }
+    document.querySelectorAll('img.photo-real').forEach((img) => {
+        if (img.complete && img.naturalWidth > 0) markLoaded(img);
+        img.addEventListener('load', () => markLoaded(img));
+    });
+
+    /* ---------------- Upload slot: take or pick a photo ---------------- */
+    const STORAGE_KEY = 'mothersday-uploaded-photo-v1';
+    const uploadSlot = document.getElementById('upload-slot');
+    if (uploadSlot) {
+        const input = uploadSlot.querySelector('.photo-upload-input');
+        const previewImg = uploadSlot.querySelector('.photo-real');
+        const placeholder = uploadSlot.querySelector('.photo-placeholder');
+
+        // Restore prior upload (if any)
+        try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                previewImg.src = stored;
+                previewImg.addEventListener('load', () => {
+                    placeholder.classList.add('has-photo');
+                }, { once: true });
+            }
+        } catch (e) { /* ignore quota / storage errors */ }
+
+        const triggerPicker = (e) => {
+            // Avoid recursion if the actual <input> is what was clicked
+            if (e && e.target === input) return;
+            input.click();
+        };
+        uploadSlot.addEventListener('click', triggerPicker);
+        uploadSlot.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                triggerPicker();
+            }
+        });
+
+        input.addEventListener('change', () => {
+            const file = input.files && input.files[0];
+            if (!file) return;
+            resizeImage(file, 1400, 0.85, (dataUrl) => {
+                previewImg.src = dataUrl;
+                previewImg.addEventListener('load', () => {
+                    placeholder.classList.add('has-photo');
+                }, { once: true });
+                try { localStorage.setItem(STORAGE_KEY, dataUrl); } catch (e) {}
+                // Celebrate
+                burstConfetti();
+            });
+        });
+    }
+
+    function resizeImage(file, maxDim, quality, callback) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const tmp = new Image();
+            tmp.onload = () => {
+                let { width, height } = tmp;
+                if (width > maxDim || height > maxDim) {
+                    if (width >= height) {
+                        height = Math.round(height * (maxDim / width));
+                        width = maxDim;
+                    } else {
+                        width = Math.round(width * (maxDim / height));
+                        height = maxDim;
+                    }
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(tmp, 0, 0, width, height);
+                callback(canvas.toDataURL('image/jpeg', quality));
+            };
+            tmp.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
     /* ---------------- Envelope opening ---------------- */
     const envelope = document.getElementById('envelope');
     if (envelope) {
