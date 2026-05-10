@@ -597,6 +597,74 @@ img { max-width: 100%; display: block; }
 .placeholder-add small {
     color: var(--rose-500);
 }
+
+/* Remove (X) button — only visible when a photo is present. */
+.photo-remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--rose-600);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(143, 39, 80, 0.25);
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+    z-index: 5;
+    padding: 0;
+}
+.photo-remove-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+}
+.photo-remove-btn:hover {
+    background: var(--rose-500);
+    color: #fff;
+    transform: scale(1.1);
+}
+.photo-placeholder.has-photo .photo-remove-btn {
+    display: flex;
+}
+
+/* "Tap to change" overlay — appears on hover when a photo is present. */
+.photo-change-overlay {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(200, 63, 111, 0.55), rgba(143, 39, 80, 0.55));
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 4;
+    pointer-events: none;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+.photo-change-overlay svg {
+    width: 38px;
+    height: 38px;
+    stroke: #fff;
+    fill: none;
+}
+.photo-placeholder.has-photo .photo-change-overlay { display: flex; }
+.gallery-add:hover .photo-placeholder.has-photo .photo-change-overlay,
+.gallery-add:focus-visible .photo-placeholder.has-photo .photo-change-overlay {
+    opacity: 1;
+}
 .placeholder-icon {
     width: 56px;
     height: 56px;

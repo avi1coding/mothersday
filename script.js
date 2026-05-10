@@ -124,13 +124,14 @@
         img.addEventListener('load', () => markLoaded(img));
     });
 
-    /* ---------------- Upload slot: take or pick a photo ---------------- */
+    /* ---------------- Upload slot: take, remove, or retake a photo ---------------- */
     const STORAGE_KEY = 'mothersday-uploaded-photo-v1';
     const uploadSlot = document.getElementById('upload-slot');
     if (uploadSlot) {
         const input = uploadSlot.querySelector('.photo-upload-input');
         const previewImg = uploadSlot.querySelector('.photo-real');
         const placeholder = uploadSlot.querySelector('.photo-placeholder');
+        const removeBtn = uploadSlot.querySelector('.photo-remove-btn');
 
         // Restore prior upload (if any)
         try {
@@ -143,12 +144,15 @@
             }
         } catch (e) { /* ignore quota / storage errors */ }
 
-        const triggerPicker = (e) => {
-            // Avoid recursion if the actual <input> is what was clicked
-            if (e && e.target === input) return;
-            input.click();
-        };
-        uploadSlot.addEventListener('click', triggerPicker);
+        const triggerPicker = () => input.click();
+
+        uploadSlot.addEventListener('click', (e) => {
+            // Don't reopen the picker if the user clicked the remove button
+            // or the file input itself.
+            if (e.target.closest('.photo-remove-btn')) return;
+            if (e.target === input) return;
+            triggerPicker();
+        });
         uploadSlot.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -165,10 +169,21 @@
                     placeholder.classList.add('has-photo');
                 }, { once: true });
                 try { localStorage.setItem(STORAGE_KEY, dataUrl); } catch (e) {}
-                // Celebrate
                 burstConfetti();
             });
+            // Reset the input so picking the same file again still fires change
+            input.value = '';
         });
+
+        if (removeBtn) {
+            removeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                placeholder.classList.remove('has-photo');
+                previewImg.removeAttribute('src');
+                input.value = '';
+                try { localStorage.removeItem(STORAGE_KEY); } catch (err) {}
+            });
+        }
     }
 
     function resizeImage(file, maxDim, quality, callback) {

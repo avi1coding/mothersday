@@ -98,6 +98,17 @@
                 <circle cx="50" cy="50" r="9" fill="#e8b974"/>
                 <path d="M50 45v10M45 50h10" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
             </symbol>
+
+            <!-- X (close) -->
+            <symbol id="i-x" viewBox="0 0 24 24">
+                <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            </symbol>
+
+            <!-- CAMERA SWAP (retake) -->
+            <symbol id="i-retake" viewBox="0 0 24 24">
+                <path d="M5 8h3l1.5-2h5L16 8h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="12" cy="14" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/>
+            </symbol>
         </defs>
     </svg>
 
@@ -227,7 +238,6 @@
         <div class="container">
             <p class="eyebrow">Memories</p>
             <h2 class="section-title">Some of our <span class="script accent">favorite moments</span></h2>
-            <p class="section-sub">Drop your favorite photos into these frames &mdash; they're ready and waiting for you.</p>
 
             <div class="gallery-grid">
                 <figure class="gallery-item">
@@ -278,6 +288,13 @@
                         <small>Click to take or upload one</small>
                         <img class="photo-real" alt="Your photo" />
                         <input type="file" class="photo-upload-input" accept="image/*" hidden />
+                        <div class="photo-change-overlay" aria-hidden="true">
+                            <svg><use href="#i-retake"/></svg>
+                            <span>Tap to change</span>
+                        </div>
+                        <button type="button" class="photo-remove-btn" aria-label="Remove photo">
+                            <svg><use href="#i-x"/></svg>
+                        </button>
                     </div>
                     <figcaption>Your moment, Mom</figcaption>
                 </figure>
